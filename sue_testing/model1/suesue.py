@@ -68,6 +68,8 @@ class SUE:
     def search_product(self, suemade: str):
         browser.element('[name="query"]').type(suemade).press_enter()
         browser.element('#uid_item_72052 > a > span.block > span.add_to_cart.avail_3').click()
+        search_results_text = browser.all('#uid_item_72052 > a > h3')
+        assert len(search_results_text) > 0, 'No found'
         return self
 
     def check1(self):
@@ -113,6 +115,8 @@ class SUE:
     def youtube(self):
         browser.element('[href="https://www.youtube.com/channel/UCukwNr6G-K1pmBbcbSKgarg?view_as=subscriber"]').click()
         return self
+
+
 
 
 
