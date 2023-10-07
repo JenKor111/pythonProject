@@ -6,68 +6,67 @@ from selene.support.conditions import be
 from selene.support.conditions import have
 
 def test_sue():
+    #Go to the website
     browser.open('https://suemade.com/')
+    browser.driver.maximize_window()
     browser.element('.but_nav.but_profile').click()
     time.sleep(2)
-    #Авторизація
+    #Authorization
     browser.element('[name="login"]').type('evgeniyaakornienko@gmail.com').press_enter()
     browser.element('[name="pass"]').type('12345q').press_enter()
     browser.element('.log-column-left .but').click()
     time.sleep(2)
-    #Перехід на вкладку Каталог
+    #Go to the Catalog tab
     browser.element('#dd_info > div > div.nav > ul > li:nth-child(1)').click()
     time.sleep(2)
-    #Перехід на вкладку косметика для обличчя
+    #Go to the face cosmetics tab
     browser.element('[name="for-face"]').click()
     time.sleep(2)
-    #Вибір товару Міцелярна вода з фільтрами
+    #Product selection Micellar water with filters
     browser.element('#uid_item_71420 > a > h3').click()
     time.sleep(2)
     browser.element('#uid_product > div > div.base > div:nth-child(6) > span.counter > span > i:nth-child(3)').click()
     time.sleep(2)
     browser.element('#uid_product > div > div.base > div:nth-child(6) > span.price_multi > span:nth-child(2)').click()
     time.sleep(2)
-    #Дивимось відгуки
+    #look at the feedback
     browser.element('[href="#prod_comment"]').click()
     time.sleep(2)
-    #Дивимось на спосіб використання
+    #Look at the method of use
     browser.element('[href="#prod_recept_block"]').click()
     time.sleep(2)
-    #Натиснути вподойбайку на товар
+    #Like the product
     browser.element('a.but_fav').click()
     time.sleep(2)
-    #Покупаємо товар
+    #Buy goods
     browser.element('a.avail_1').click()
     time.sleep(2)
-    #Перевірка наявності товару в кошику + натискаємо на кошик
+    #Check the availability of goods in the cart
     search_results_text = browser.all('[href="cart/"]')
     assert len(search_results_text) > 0, 'No found'
     time.sleep(2)
-    browser.element('[href="cart/"]').click()
+    #Go to the main page
+    browser.element('body > div.nav_bar > div > a.logo').click()
     time.sleep(2)
-    #Видалити товар з кошику
-    browser.element('.but_delete').click()
-    time.sleep(2)
-    #Перейти на головну сторінку
-    browser.element('#page_cart > div.empty > a').click()
-    time.sleep(2)
-    #Натискаємо на кнопку пошук та вводимо товар та додаємо у кошик
+    #Click on the search button and enter the product and add it to the cart
     browser.element('body > div.nav_bar > div > a.but_nav.but_search').click()
     time.sleep(2)
     browser.element('[name="query"]').type('Гель для вмивання Prebiotic').press_enter()
     time.sleep(2)
     browser.element('#uid_item_72052 > a > span.block > span.add_to_cart.avail_3').click()
+    search_results_text = browser.all('#uid_item_72052 > a > h3')
+    assert len(search_results_text) > 0, 'No found'
     time.sleep(2)
-    # Перевірка наявності товару в кошику
+    #Check the availability of goods in the cart
     search_results_text = browser.all('[href="cart/"]')
     assert len(search_results_text) > 0, 'No found'
     time.sleep(2)
-    #перейти на вкладку контакти, продивитись
+    #Go to the contacts tab
     browser.element('#dd_info > div > div.nav > ul > li:nth-child(2) > a').click()
     time.sleep(2)
     browser.element('[name="contact/"]').click()
     time.sleep(2)
-    #Переходимо в профіль та редагуємо дані
+    #Go to the profile and edit the data
     browser.element('[href="profile/"]').click()
     time.sleep(3)
     browser.element('#uid_profile_data > div > a').click()
@@ -78,19 +77,30 @@ def test_sue():
     time.sleep(3)
     browser.element('#uid_popup_profile_edit > form > a').double_click()
     time.sleep(5)
-    #Вихід
+    #Exit
     browser.element('body > div.main > div > div.profile > a').click()
     time.sleep(5)
-    #Негативний тест
-def test_negsue():
-    browser.open('https://suemade.com/')
+    #Re-authorization (negative test)
     browser.element('.but_nav.but_profile').click()
-    time.sleep(2)
-    # Авторизація
-    browser.element('[name="login"]').type('evgeniyakornienk@gmail.com').press_enter()
     browser.element('[name="pass"]').type('12345').press_enter()
     browser.element('.log-column-left .but').click()
+    browser.element('[name="pass"]').type('q').press_enter()
+    browser.element('.log-column-left .but').click()
     time.sleep(5)
+    #Feedback
+    browser.element('[href="reviews/"]').click()
+    browser.element('#prod_comment > a:nth-child(1)').click()
+    browser.element('[name="author"]').type('111').press_enter()
+    browser.element('[name="email"]').type('evgen').press_enter()
+    browser.element('[name="text"]').type('Гарний сайт').press_enter()
+    time.sleep(2)
+    browser.element('[title="Рекомендую"]').click()
+    time.sleep(2)
+    browser.element('.edit .but').click()
+    browser.element('.popup-close').click()
+    time.sleep(3)
+    #Еransition from the site to the YouTube page
+    browser.element('[href="https://www.youtube.com/channel/UCukwNr6G-K1pmBbcbSKgarg?view_as=subscriber"]').click()
 
 
 
